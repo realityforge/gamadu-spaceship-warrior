@@ -34,7 +34,8 @@ public class CollisionSystem extends EntitySystem {
 			@Override
 			public void handleCollision(Entity bullet, Entity ship) {
 				Position bp = pm.get(bullet);
-				EntityFactory.createExplosion(world, bp.x, bp.y, 0.5f).addToWorld();
+				EntityFactory.createExplosion(world, bp.x, bp.y, 0.1f).addToWorld();
+				for(int i = 0; 50 > i; i++) EntityFactory.createParticle(world, bp.x, bp.y).addToWorld();
 				bullet.deleteFromWorld();
 
 				Health health = hm.get(ship);
@@ -43,7 +44,7 @@ public class CollisionSystem extends EntitySystem {
 				if(health.health < 0) {
 					health.health = 0;
 					ship.deleteFromWorld();
-					EntityFactory.createExplosion(world, position.x, position.y, 2).addToWorld();
+					EntityFactory.createExplosion(world, position.x, position.y, 0.5f).addToWorld();
 				}
 			}
 		}));

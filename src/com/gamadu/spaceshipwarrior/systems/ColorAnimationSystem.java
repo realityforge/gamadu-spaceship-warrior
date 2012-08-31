@@ -25,7 +25,11 @@ public class ColorAnimationSystem extends EntityProcessingSystem {
 			sprite.a += c.alphaSpeed * world.getDeltaFloat();
 			
 			if(sprite.a > c.alphaMax || sprite.a < c.alphaMin) {
-				c.alphaSpeed = -c.alphaSpeed;
+				if(c.repeat) {
+					c.alphaSpeed = -c.alphaSpeed;
+				} else {
+					c.alphaAnimate = false;
+				}
 			}
 		}
 	}

@@ -119,8 +119,12 @@ public class EntityFactory {
 		e.addComponent(position);
 		
 		Sprite sprite = new Sprite();
-		sprite.name = "particle";
+		sprite.name = "explosion";
 		sprite.scale = scale;
+		sprite.r = 1;
+		sprite.g = 216/255f;
+		sprite.b = 0;
+		sprite.a = 0.5f;
 		e.addComponent(sprite);
 		
 		DeleteTimer dt = new DeleteTimer();
@@ -166,6 +170,43 @@ public class EntityFactory {
 		colorAnimation.alphaMax = 0.2f;
 		e.addComponent(colorAnimation);
 		
+		return e;
+	}
+	
+	public static Entity createParticle(World world, float x, float y) {
+		Entity e = world.createEntity();
+		
+		Position position = new Position();
+		position.x = x;
+		position.y = y;
+		e.addComponent(position);
+		
+		Sprite sprite = new Sprite();
+		sprite.name = "particle";
+		sprite.scale = MathUtils.random(0.3f, 0.6f);
+		sprite.r = 1;
+		sprite.g = 216/255f;
+		sprite.b = 0;
+		sprite.a = 0.5f;
+		e.addComponent(sprite);
+		
+		Velocity velocity = new Velocity();
+		velocity.vectorX = MathUtils.random(-400, 400);
+		velocity.vectorY = MathUtils.random(-400, 400);
+		e.addComponent(velocity);
+		
+		DeleteTimer dt = new DeleteTimer();
+		dt.timer = 1;
+		e.addComponent(dt);
+
+		ColorAnimation colorAnimation = new ColorAnimation();
+		colorAnimation.alphaAnimate = true;
+		colorAnimation.alphaSpeed = -1f;
+		colorAnimation.alphaMin = 0f;
+		colorAnimation.alphaMax = 1f;
+		colorAnimation.repeat = false;
+		e.addComponent(colorAnimation);
+
 		return e;
 	}
 

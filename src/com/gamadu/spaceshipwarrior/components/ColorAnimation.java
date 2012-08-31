@@ -8,5 +8,5 @@ public class ColorAnimation extends Component {
 	public float blueMin, blueMax, blueSpeed;
 	public float alphaMin, alphaMax, alphaSpeed;
 	
-	public boolean redAnimate, greenAnimate, blueAnimate, alphaAnimate;
+	public boolean redAnimate, greenAnimate, blueAnimate, alphaAnimate, repeat;
 }
