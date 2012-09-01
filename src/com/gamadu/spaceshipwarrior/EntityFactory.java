@@ -30,6 +30,7 @@ public class EntityFactory {
 		sprite.r = 93/255f;
 		sprite.g = 255/255f;
 		sprite.b = 129/255f;
+		sprite.layer = Sprite.Layer.ACTORS_3;
 		e.addComponent(sprite);
 		
 		Velocity velocity = new Velocity();
@@ -38,7 +39,7 @@ public class EntityFactory {
 		e.addComponent(velocity);
 		
 		Bounds bounds = new Bounds();
-		bounds.radius = 33;
+		bounds.radius = 43;
 		e.addComponent(bounds);
 		
 		e.addComponent(new Player());
@@ -58,6 +59,7 @@ public class EntityFactory {
 		
 		Sprite sprite = new Sprite();
 		sprite.name = "bullet";
+		sprite.layer = Sprite.Layer.PARTICLES;
 		e.addComponent(sprite);
 		
 		Velocity velocity = new Velocity();
@@ -77,7 +79,7 @@ public class EntityFactory {
 		return e;
 	}
 	
-	public static Entity createEnemyShip(World world, String name, float health, float x, float y, float velocityX, float velocityY) {
+	public static Entity createEnemyShip(World world, String name, Sprite.Layer layer, float health, float x, float y, float velocityX, float velocityY) {
 		Entity e = world.createEntity();
 		
 		Position position = new Position();
@@ -90,6 +92,7 @@ public class EntityFactory {
 		sprite.r = 255/255f;
 		sprite.g = 0/255f;
 		sprite.b = 142/255f;
+		sprite.layer = layer;
 		e.addComponent(sprite);
 		
 		Velocity velocity = new Velocity();
@@ -98,7 +101,7 @@ public class EntityFactory {
 		e.addComponent(velocity);
 		
 		Bounds bounds = new Bounds();
-		bounds.radius = 40;
+		bounds.radius = 60;
 		e.addComponent(bounds);
 		
 		Health h = new Health();
@@ -125,6 +128,7 @@ public class EntityFactory {
 		sprite.g = 216/255f;
 		sprite.b = 0;
 		sprite.a = 0.5f;
+		sprite.layer = Sprite.Layer.PARTICLES;
 		e.addComponent(sprite);
 		
 		DeleteTimer dt = new DeleteTimer();
@@ -152,9 +156,10 @@ public class EntityFactory {
 		e.addComponent(position);
 		
 		Sprite sprite = new Sprite();
-		sprite.name = "star";
-		sprite.scale = MathUtils.random(0.2f, 0.4f);
-		sprite.a = MathUtils.random(0.1f, 0.75f);
+		sprite.name = "particle";
+		sprite.scale = MathUtils.random(0.5f, 1f);
+		sprite.a = MathUtils.random(0.1f, 0.5f);
+		sprite.layer = Sprite.Layer.BACKGROUND;
 		e.addComponent(sprite);
 		
 		Velocity velocity = new Velocity();
@@ -165,9 +170,10 @@ public class EntityFactory {
 		
 		ColorAnimation colorAnimation = new ColorAnimation();
 		colorAnimation.alphaAnimate = true;
-		colorAnimation.alphaSpeed = MathUtils.random(0.2f, 1f);
+		colorAnimation.repeat = true;
+		colorAnimation.alphaSpeed = MathUtils.random(0.2f, 0.7f);
 		colorAnimation.alphaMin = 0.1f;
-		colorAnimation.alphaMax = 0.2f;
+		colorAnimation.alphaMax = 0.5f;
 		e.addComponent(colorAnimation);
 		
 		return e;
@@ -188,6 +194,7 @@ public class EntityFactory {
 		sprite.g = 216/255f;
 		sprite.b = 0;
 		sprite.a = 0.5f;
+		sprite.layer = Sprite.Layer.PARTICLES;
 		e.addComponent(sprite);
 		
 		Velocity velocity = new Velocity();

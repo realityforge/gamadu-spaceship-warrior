@@ -7,15 +7,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 import com.gamadu.spaceshipwarrior.systems.CollisionSystem;
 import com.gamadu.spaceshipwarrior.systems.ColorAnimationSystem;
 import com.gamadu.spaceshipwarrior.systems.DeleteTimerSystem;
 import com.gamadu.spaceshipwarrior.systems.EntitySpawningTimerSystem;
 import com.gamadu.spaceshipwarrior.systems.HealthRenderSystem;
+import com.gamadu.spaceshipwarrior.systems.HudRenderSystem;
 import com.gamadu.spaceshipwarrior.systems.MovementSystem;
-import com.gamadu.spaceshipwarrior.systems.PlayerInputSystem;
 import com.gamadu.spaceshipwarrior.systems.ParallaxStarRepeatingSystem;
+import com.gamadu.spaceshipwarrior.systems.PlayerInputSystem;
 import com.gamadu.spaceshipwarrior.systems.ScaleAnimationSystem;
 import com.gamadu.spaceshipwarrior.systems.SpriteRenderSystem;
 
@@ -37,11 +37,13 @@ public class GameScreen implements Screen {
 		world.setSystem(new CollisionSystem());
 		world.setSystem(new DeleteTimerSystem());
 		world.setSystem(new EntitySpawningTimerSystem());
-		world.setSystem(new SpriteRenderSystem(camera));
-		world.setSystem(new HealthRenderSystem(camera));
 		world.setSystem(new ParallaxStarRepeatingSystem());
 		world.setSystem(new ColorAnimationSystem());
 		world.setSystem(new ScaleAnimationSystem());
+
+		world.setSystem(new SpriteRenderSystem(camera));
+		world.setSystem(new HealthRenderSystem(camera));
+		world.setSystem(new HudRenderSystem(camera));
 
 		world.initialize();
 
