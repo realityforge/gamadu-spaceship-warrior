@@ -6,7 +6,7 @@ import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.math.MathUtils;
 import com.gamadu.spaceshipwarrior.components.Bounds;
 import com.gamadu.spaceshipwarrior.components.ColorAnimation;
-import com.gamadu.spaceshipwarrior.components.DeleteTimer;
+import com.gamadu.spaceshipwarrior.components.Expires;
 import com.gamadu.spaceshipwarrior.components.Health;
 import com.gamadu.spaceshipwarrior.components.ParallaxStar;
 import com.gamadu.spaceshipwarrior.components.Player;
@@ -70,16 +70,16 @@ public class EntityFactory {
 		bounds.radius = 5;
 		e.addComponent(bounds);
 		
-		DeleteTimer dt = new DeleteTimer();
-		dt.timer = 5;
-		e.addComponent(dt);
+		Expires expires = new Expires();
+		expires.delay = 5;
+		e.addComponent(expires);
 		
 		world.getManager(GroupManager.class).add(e, Constants.Groups.PLAYER_BULLETS);
 		
 		return e;
 	}
 	
-	public static Entity createEnemyShip(World world, String name, Sprite.Layer layer, float health, float x, float y, float velocityX, float velocityY) {
+	public static Entity createEnemyShip(World world, String name, Sprite.Layer layer, float health, float x, float y, float velocityX, float velocityY, float boundsRadius) {
 		Entity e = world.createEntity();
 		
 		Position position = new Position();
@@ -101,7 +101,7 @@ public class EntityFactory {
 		e.addComponent(velocity);
 		
 		Bounds bounds = new Bounds();
-		bounds.radius = 60;
+		bounds.radius = boundsRadius;
 		e.addComponent(bounds);
 		
 		Health h = new Health();
@@ -131,9 +131,9 @@ public class EntityFactory {
 		sprite.layer = Sprite.Layer.PARTICLES;
 		e.addComponent(sprite);
 		
-		DeleteTimer dt = new DeleteTimer();
-		dt.timer = 0.5f;
-		e.addComponent(dt);
+		Expires expires = new Expires();
+		expires.delay = 0.5f;
+		e.addComponent(expires);
 		
 		
 		ScaleAnimation scaleAnimation = new ScaleAnimation();
@@ -202,9 +202,9 @@ public class EntityFactory {
 		velocity.vectorY = MathUtils.random(-400, 400);
 		e.addComponent(velocity);
 		
-		DeleteTimer dt = new DeleteTimer();
-		dt.timer = 1;
-		e.addComponent(dt);
+		Expires expires = new Expires();
+		expires.delay = 1;
+		e.addComponent(expires);
 
 		ColorAnimation colorAnimation = new ColorAnimation();
 		colorAnimation.alphaAnimate = true;

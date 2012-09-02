@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gamadu.spaceshipwarrior.systems.CollisionSystem;
 import com.gamadu.spaceshipwarrior.systems.ColorAnimationSystem;
-import com.gamadu.spaceshipwarrior.systems.DeleteTimerSystem;
+import com.gamadu.spaceshipwarrior.systems.ExpiringSystem;
 import com.gamadu.spaceshipwarrior.systems.EntitySpawningTimerSystem;
 import com.gamadu.spaceshipwarrior.systems.HealthRenderSystem;
 import com.gamadu.spaceshipwarrior.systems.HudRenderSystem;
@@ -25,6 +25,10 @@ public class GameScreen implements Screen {
 	private Game game;
 	private World world;
 	private OrthographicCamera camera;
+	
+	private SpriteRenderSystem spriteRenderSystem;
+	private HealthRenderSystem healthRenderSystem;
+	private HudRenderSystem hudRenderSystem;
 
 	public GameScreen(Game game) {
 		this.game = game;
@@ -37,16 +41,16 @@ public class GameScreen implements Screen {
 		world.setSystem(new MovementSystem());
 		world.setSystem(new PlayerInputSystem(camera));
 		world.setSystem(new CollisionSystem());
-		world.setSystem(new DeleteTimerSystem());
+		world.setSystem(new ExpiringSystem());
 		world.setSystem(new EntitySpawningTimerSystem());
 		world.setSystem(new ParallaxStarRepeatingSystem());
 		world.setSystem(new ColorAnimationSystem());
 		world.setSystem(new ScaleAnimationSystem());
 		world.setSystem(new RemoveOffscreenShipsSystem());
 
-		world.setSystem(new SpriteRenderSystem(camera));
-		world.setSystem(new HealthRenderSystem(camera));
-		world.setSystem(new HudRenderSystem(camera));
+		spriteRenderSystem = world.setSystem(new SpriteRenderSystem(camera), true);
+		healthRenderSystem = world.setSystem(new HealthRenderSystem(camera), true);
+		hudRenderSystem = world.setSystem(new HudRenderSystem(camera), true);
 
 		world.initialize();
 
@@ -55,6 +59,7 @@ public class GameScreen implements Screen {
 		for(int i = 0; 500 > i; i++) {
 			EntityFactory.createStar(world).addToWorld();
 		}
+		
 	}
 
 	@Override
@@ -63,15 +68,19 @@ public class GameScreen implements Screen {
 		
 		camera.update();
 
-		world.setDeltaFloat(delta);
+		world.setDelta(delta);
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			for(int i = 0; 10 > i; i++) {
 				world.process();
 			}
 		}
 		world.process();
+		
+		spriteRenderSystem.process();
+		healthRenderSystem.process();
+		hudRenderSystem.process();
 	}
-
+	
 	@Override
 	public void resize(int width, int height) {
 	}

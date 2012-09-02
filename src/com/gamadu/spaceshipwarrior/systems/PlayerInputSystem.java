@@ -86,7 +86,7 @@ public class PlayerInputSystem extends EntityProcessingSystem implements InputPr
 			}
 		}
 		if(timeToFire > 0) {
-			timeToFire -= world.getDeltaFloat();
+			timeToFire -= world.delta;
 			if(timeToFire < 0) {
 				timeToFire = 0;
 			}

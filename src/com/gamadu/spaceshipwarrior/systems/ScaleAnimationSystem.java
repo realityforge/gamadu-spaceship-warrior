@@ -24,7 +24,7 @@ public class ScaleAnimationSystem extends EntityProcessingSystem {
 		if (scaleAnimation.active) {
 			Sprite sprite = sm.get(e);
 
-			sprite.scaleX += scaleAnimation.speed * world.getDeltaFloat();
+			sprite.scaleX += scaleAnimation.speed * world.delta;
 			sprite.scaleY = sprite.scaleX;
 
 			if (sprite.scaleX > scaleAnimation.max) {

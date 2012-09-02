@@ -4,7 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.systems.IntervalEntityProcessingSystem;
 import com.gamadu.spaceshipwarrior.SpaceshipWarrior;
 import com.gamadu.spaceshipwarrior.components.Bounds;
 import com.gamadu.spaceshipwarrior.components.Health;
@@ -12,12 +12,12 @@ import com.gamadu.spaceshipwarrior.components.Player;
 import com.gamadu.spaceshipwarrior.components.Position;
 import com.gamadu.spaceshipwarrior.components.Velocity;
 
-public class RemoveOffscreenShipsSystem extends EntityProcessingSystem {
+public class RemoveOffscreenShipsSystem extends IntervalEntityProcessingSystem {
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Bounds> bm;
 
 	public RemoveOffscreenShipsSystem() {
-		super(Aspect.getAspectForAll(Velocity.class, Position.class, Health.class, Bounds.class).exclude(Player.class));
+		super(Aspect.getAspectForAll(Velocity.class, Position.class, Health.class, Bounds.class).exclude(Player.class), 5);
 	}
 
 	@Override

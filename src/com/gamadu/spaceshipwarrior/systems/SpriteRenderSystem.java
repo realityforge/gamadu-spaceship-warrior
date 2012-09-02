@@ -88,7 +88,8 @@ public class SpriteRenderSystem extends EntitySystem {
 	}
 
 	protected void process(Entity e) {
-		Position position = pm.get(e);
+		if(pm.has(e)) {
+		Position position = pm.getSafe(e);
 		Sprite sprite = sm.get(e);
 
 		AtlasRegion spriteRegion = regionsByEntity.get(e.getId());
@@ -98,6 +99,7 @@ public class SpriteRenderSystem extends EntitySystem {
 		float posY = position.y - (spriteRegion.getRegionHeight() / 2 * sprite.scaleX);
 		batch.draw(spriteRegion, posX, posY, 0, 0, spriteRegion.getRegionWidth(), spriteRegion.getRegionHeight(), sprite.scaleX, sprite.scaleY, sprite.rotation);
 		// GdxUtils.drawCentered(batch, spriteRegion, position.x, position.y);
+		}
 	}
 
 	protected void end() {

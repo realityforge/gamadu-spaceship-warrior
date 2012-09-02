@@ -22,7 +22,7 @@ public class ColorAnimationSystem extends EntityProcessingSystem {
 		Sprite sprite = sm.get(e);
 		
 		if(c.alphaAnimate) {
-			sprite.a += c.alphaSpeed * world.getDeltaFloat();
+			sprite.a += c.alphaSpeed * world.delta;
 			
 			if(sprite.a > c.alphaMax || sprite.a < c.alphaMin) {
 				if(c.repeat) {
