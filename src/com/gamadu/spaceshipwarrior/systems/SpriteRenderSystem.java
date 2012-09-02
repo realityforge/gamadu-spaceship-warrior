@@ -28,7 +28,7 @@ import com.gamadu.spaceshipwarrior.components.Player;
 import com.gamadu.spaceshipwarrior.components.Position;
 import com.gamadu.spaceshipwarrior.components.Sprite;
 
-public class SpriteRenderSystem extends EntityProcessingSystem {
+public class SpriteRenderSystem extends EntitySystem {
 	@Mapper
 	ComponentMapper<Position> pm;
 	@Mapper
@@ -74,7 +74,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
 		batch.begin();
 	}
 
-	/*@Override
+	@Override
 	protected boolean checkProcessing() {
 		return true;
 	}
@@ -85,9 +85,8 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
 		for(int i = 0; sortedEntities.size() > i; i++) {
 			process(sortedEntities.get(i));
 		}
-	}*/
+	}
 
-	@Override
 	protected void process(Entity e) {
 		Position position = pm.get(e);
 		Sprite sprite = sm.get(e);
@@ -110,7 +109,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
 		Sprite sprite = sm.get(e);
 		regionsByEntity.set(e.getId(), regions.get(sprite.name));
 
-		/*sortedEntities.add(e);
+		sortedEntities.add(e);
 		
 		Collections.sort(sortedEntities, new Comparator<Entity>() {
 			@Override
@@ -119,13 +118,13 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
 				Sprite s2 = sm.get(e2);
 				return s1.layer.compareTo(s2.layer);
 			}
-		});*/
+		});
 	}
 
 	@Override
 	protected void removed(Entity e) {
 		regionsByEntity.set(e.getId(), null);
-		//sortedEntities.remove(e);
+		sortedEntities.remove(e);
 	}
 
 }
