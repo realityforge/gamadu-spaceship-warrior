@@ -4,6 +4,7 @@ import com.artemis.World;
 import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,6 +17,7 @@ import com.gamadu.spaceshipwarrior.systems.HudRenderSystem;
 import com.gamadu.spaceshipwarrior.systems.MovementSystem;
 import com.gamadu.spaceshipwarrior.systems.ParallaxStarRepeatingSystem;
 import com.gamadu.spaceshipwarrior.systems.PlayerInputSystem;
+import com.gamadu.spaceshipwarrior.systems.RemoveOffscreenShipsSystem;
 import com.gamadu.spaceshipwarrior.systems.ScaleAnimationSystem;
 import com.gamadu.spaceshipwarrior.systems.SpriteRenderSystem;
 
@@ -40,6 +42,7 @@ public class GameScreen implements Screen {
 		world.setSystem(new ParallaxStarRepeatingSystem());
 		world.setSystem(new ColorAnimationSystem());
 		world.setSystem(new ScaleAnimationSystem());
+		world.setSystem(new RemoveOffscreenShipsSystem());
 
 		world.setSystem(new SpriteRenderSystem(camera));
 		world.setSystem(new HealthRenderSystem(camera));
@@ -61,6 +64,11 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		world.setDeltaFloat(delta);
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			for(int i = 0; 10 > i; i++) {
+				world.process();
+			}
+		}
 		world.process();
 	}
 

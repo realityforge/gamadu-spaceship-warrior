@@ -5,15 +5,11 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.utils.TrigLUT;
-import com.artemis.utils.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.Ray;
 import com.gamadu.spaceshipwarrior.EntityFactory;
 import com.gamadu.spaceshipwarrior.components.Player;
 import com.gamadu.spaceshipwarrior.components.Position;
@@ -35,10 +31,12 @@ public class PlayerInputSystem extends EntityProcessingSystem implements InputPr
 	
 	private float destinationX, destinationY;
 	private OrthographicCamera camera;
+	private Vector3 mouseVector;
 	
 	public PlayerInputSystem(OrthographicCamera camera) {
 		super(Aspect.getAspectFor(Position.class, Velocity.class, Player.class));
 		this.camera = camera;
+		this.mouseVector = new Vector3();
 	}
 	
 	@Override
@@ -51,18 +49,19 @@ public class PlayerInputSystem extends EntityProcessingSystem implements InputPr
 		Position position = pm.get(e);
 		Velocity velocity = vm.get(e);
 		
-		Ray ray = camera.getPickRay(Gdx.input.getX(), Gdx.input.getY());
-		Vector3 ep = ray.getEndPoint(0);
-		destinationX = ep.x;
-		destinationY = ep.y;
+		mouseVector.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+		camera.unproject(mouseVector);
+		
+		destinationX = mouseVector.x;
+		destinationY = mouseVector.y;
 		
 		//float angleInRadians = Utils.angleInRadians(position.x, position.y, destinationX, destinationY);
 		
 		//position.x += TrigLUT.cos(angleInRadians) * 500f * world.getDeltaFloat();
 		//position.y += TrigLUT.sin(angleInRadians) * 500f * world.getDeltaFloat();
 		
-		position.x = ep.x;
-		position.y = ep.y;
+		position.x = mouseVector.x;
+		position.y = mouseVector.y;
 		
 		/*
 		if(up) {

@@ -24,13 +24,13 @@ public class ScaleAnimationSystem extends EntityProcessingSystem {
 		if (scaleAnimation.active) {
 			Sprite sprite = sm.get(e);
 
-			sprite.scale += scaleAnimation.speed * world.getDeltaFloat();
+			sprite.scaleX += scaleAnimation.speed * world.getDeltaFloat();
 
-			if (sprite.scale > scaleAnimation.max) {
-				sprite.scale = scaleAnimation.max;
+			if (sprite.scaleX > scaleAnimation.max) {
+				sprite.scaleX = scaleAnimation.max;
 				scaleAnimation.active = false;
-			} else if (sprite.scale < scaleAnimation.min) {
-				sprite.scale = scaleAnimation.min;
+			} else if (sprite.scaleX < scaleAnimation.min) {
+				sprite.scaleX = scaleAnimation.min;
 				scaleAnimation.active = false;
 			}
 		}

@@ -73,7 +73,7 @@ public class EntityFactory {
 		DeleteTimer dt = new DeleteTimer();
 		dt.timer = 5;
 		e.addComponent(dt);
-
+		
 		world.getManager(GroupManager.class).add(e, Constants.Groups.PLAYER_BULLETS);
 		
 		return e;
@@ -123,7 +123,7 @@ public class EntityFactory {
 		
 		Sprite sprite = new Sprite();
 		sprite.name = "explosion";
-		sprite.scale = scale;
+		sprite.scaleX = sprite.scaleY = scale;
 		sprite.r = 1;
 		sprite.g = 216/255f;
 		sprite.b = 0;
@@ -157,7 +157,7 @@ public class EntityFactory {
 		
 		Sprite sprite = new Sprite();
 		sprite.name = "particle";
-		sprite.scale = MathUtils.random(0.5f, 1f);
+		sprite.scaleX = sprite.scaleY = MathUtils.random(0.5f, 1f);
 		sprite.a = MathUtils.random(0.1f, 0.5f);
 		sprite.layer = Sprite.Layer.BACKGROUND;
 		e.addComponent(sprite);
@@ -189,7 +189,7 @@ public class EntityFactory {
 		
 		Sprite sprite = new Sprite();
 		sprite.name = "particle";
-		sprite.scale = MathUtils.random(0.3f, 0.6f);
+		sprite.scaleX = sprite.scaleY = MathUtils.random(0.3f, 0.6f);
 		sprite.r = 1;
 		sprite.g = 216/255f;
 		sprite.b = 0;

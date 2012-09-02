@@ -22,7 +22,7 @@ public class SpaceshipWarrior extends Game {
 		lwjglApplicationConfiguration.width = FRAME_WIDTH;
 		lwjglApplicationConfiguration.height = FRAME_HEIGHT;
 		lwjglApplicationConfiguration.useCPUSynch = false;
-		lwjglApplicationConfiguration.vSyncEnabled = true;
+		lwjglApplicationConfiguration.vSyncEnabled = false;
 		lwjglApplicationConfiguration.title = "Spaceship Warrior";
 		new LwjglApplication(new SpaceshipWarrior(), lwjglApplicationConfiguration);
 	}
